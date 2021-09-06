@@ -150,7 +150,7 @@ function write_string($im, $font, $x, $y, $string, $color)
  */
 function next_station_is_same($currentElement, $nextElement)
 {
-	if (substr($currentElement, 0, 4) === substr($nextElement, 0, 4)) {
+	if ((substr($currentElement, 0, 4) === substr($nextElement, 0, 4)) or (substr($currentElement, -3) === substr($nextElement, -3) and strcmp(substr($currentElement, -3), "CTR") === 0 and strcmp(substr($nextElement, -3), "CTR") === 0)) {
 		return true;
 	}
 	return false;
