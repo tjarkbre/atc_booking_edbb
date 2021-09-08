@@ -10,4 +10,4 @@ Add `MyriadProRegular.ttf` in the main folder of this application to get nicer v
 If not the default font will be used.
 
 ## Licence
-Made by Paul Hollmann
+Made by Paul Hollmann, Tjark Brendel and Manuel Pick
