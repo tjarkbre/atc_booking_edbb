@@ -157,9 +157,12 @@ function write_string($im, $font, $x, $y, $string, $color)
 function next_station_is_same($currentElement, $nextElement)
 {
 	if ((substr($currentElement, 0, 4) === substr($nextElement, 0, 4)) or (substr($currentElement, -3) === substr($nextElement, -3) and strcmp(substr($currentElement, -3), "CTR") === 0 and strcmp(substr($nextElement, -3), "CTR") === 0)) {
-		return true;
+		if((substr($currentElement, 0, 4) === substr($nextElement, 0, 4)) and strcmp(substr($currentElement, -3), "DEP") === 0 and strcmp(substr($nextElement, -3), "TWR") === 0) {
+			return 2;
+		}
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 $stationsFile = fopen("allStations.csv", "r") or die("Unable to open file!");
@@ -336,8 +339,11 @@ for ($i = 0; $i < count($booking_matrix); $i++) {
 	$row = $row + $maxHeight;
 
 	// if next station is set and has other airport or center designator add empty line to it
-	if (isset($booking_matrix[$i + 1]) && !next_station_is_same($booking_matrix[$i][0], $booking_matrix[$i + 1][0])) {
+	if (isset($booking_matrix[$i + 1]) && next_station_is_same($booking_matrix[$i][0], $booking_matrix[$i + 1][0]) === 0) {
 		$row += 2;
+	}
+	if (isset($booking_matrix[$i + 1]) && next_station_is_same($booking_matrix[$i][0], $booking_matrix[$i + 1][0]) === 2) {
+		$row += 1;
 	}
 }
 for ($i = 1; $i < 3; $i++) {
